@@ -1,0 +1,44 @@
+pipeline {
+    agent {label 'DML'} //Jobs will build on slave has label hanbld0019, workspace is F:\root
+    
+    environment {
+        WORKSPACE_DIR = 'D:\\jenkins\\GitJenkins'
+        DEVTOOLS_DIR  = 'C:\\DevTools'
+    }
+	stages
+    {
+        stage ("Config")
+        {
+            steps
+            {
+                script
+                {   
+                    String startTime      = "Start at: ${new Date().format('dd/MM/yyyy HH:mm:ss')} with parameters: "
+                    String Run    = (params.Run)?' RUN':''
+                    echo RUN
+                }
+            }
+        }
+	}
+	 stage('RUN')
+        {
+            when{
+                expression { params.RUN}
+            }
+            steps
+            {
+                dir ("${WORKSPACE_DIR}")
+                {
+                    script
+                    {  
+                        bat """
+                            if not exist Y:\\ subst Y: ${DEVTOOLS_DIR}
+                            pushd ${WORKSPACE_DIR}
+                            call Run.bat
+                            popd
+                        """
+                    }
+                }
+            }
+        }
+}
