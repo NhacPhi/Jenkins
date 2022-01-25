@@ -56,7 +56,7 @@ pipeline {
 }
 def getMattermostMessageStart()
 {
-    String Run   = (params.RUN)''
+    String Run    = (params.RUN)?' RUN':''
     def msgBuild         = Run''
     return msgBuild
 }
