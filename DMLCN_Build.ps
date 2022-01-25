@@ -42,46 +42,9 @@ pipeline {
 	}
     post 
     {
-        //send build status to Mattermost channel when build done
-        failure {
-            notifyFailure()
-        }
         success {
-            notifySuccess()
-        }
-        aborted {
-            notifyAborted()
+            mattermostSend(color: "#2A42EE", message: "Simple test message", channel: "dmlcn-test", endpoint: "https://chat.gameloft.org/hooks/4xson5ab1jbo5ycizpwpwgkime")
         }
     }
 }
-def getMattermostMessage()
-{
-    String Run    = (params.RUN)?' RUN':''
-    def msgBuild         = Run''
-    return msgBuild
-}
 
-def notifyAborted()
-{
-    def colorCode = '#FFFF00'
-    def subject = " ABORTED::sadge: Job"
-    def messgeBuild = getMattermostMessage()
-    def msg = "${subject} (${messgeBuild})"
-    mattermostSend (color: colorCode, message: msg, channel: "dmlcn-test", endpoint: "https://chat.gameloft.org/hooks/o834e5a84ir8m8mi1u83oquk4h")
-}
-def notifySuccess()
-{
-    colorCode = '#00FF00'
-    def subject = ":dianowobble::dianowobble: SUCCESSFUL::10: Job"
-    def messgeBuild = getMattermostMessage()
-    def msg = "${subject} (${messgeBuild})"
-    mattermostSend (color: colorCode, message: msg, channel: "dmlcn-test", endpoint: "https://chat.gameloft.org/hooks/o834e5a84ir8m8mi1u83oquk4h")
-}
-def notifyFailure()
-{
-    def colorCode = '#FF0000'
-    def subject = " FAILED::pepe-cry: Job "
-    def messgeBuild = getMattermostMessage()
-    def msg = "${subject} (${messgeBuild})"
-    mattermostSend (color: colorCode, message: msg, channel: "dmlcn-test", endpoint: "https://chat.gameloft.org/hooks/o834e5a84ir8m8mi1u83oquk4h")
-}
