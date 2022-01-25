@@ -40,4 +40,48 @@ pipeline {
             }
         }
 	}
+    post 
+    {
+        //send build status to Mattermost channel when build done
+        failure {
+            notifyFailure()
+        }
+        success {
+            notifySuccess()
+        }
+        aborted {
+            notifyAborted()
+        }
+    }
+}
+def getMattermostMessageStart()
+{
+    String Run   = (params.RUN)''
+    def msgBuild         = Run''
+    return msgBuild
+}
+
+def notifyAborted()
+{
+    def colorCode = '#FFFF00'
+    def subject = " ABORTED::sadge: Job ${env.JOB_NAME} "
+    def messgeBuild = getMattermostMessage()
+    def msg = "${subject} (${messgeBuild})"
+    mattermostSend (color: colorCode, message: msg, channel: "dmlcn-test", endpoint: "https://chat.gameloft.org/hooks/4xson5ab1jbo5ycizpwpwgkime")
+}
+def notifySuccess()
+{
+    colorCode = '#00FF00'
+    def subject = ":dianowobble::dianowobble: SUCCESSFUL::10: Job ${env.JOB_NAME}"
+    def messgeBuild = getMattermostMessage()
+    def msg = "${subject} (${messgeBuild})"
+    mattermostSend (color: colorCode, message: msg, channel: "dmlcn-test", endpoint: "https://chat.gameloft.org/hooks/4xson5ab1jbo5ycizpwpwgkime")
+}
+def notifyFailure()
+{
+    def colorCode = '#FF0000'
+    def subject = " FAILED::pepe-cry: Job ${env.JOB_NAME} "
+    def messgeBuild = getMattermostMessage()
+    def msg = "${subject} (${messgeBuild})"
+    mattermostSend (color: colorCode, message: msg, channel: "dmlcn-test", endpoint: "https://chat.gameloft.org/hooks/4xson5ab1jbo5ycizpwpwgkime")
 }
