@@ -60,6 +60,6 @@ def notifySuccess()
     def subject = ":dianowobble::dianowobble: SUCCESSFUL::10: Job ${env.JOB_NAME}"
     def messgeBuild = getMattermostMessage()
     def msg = "${subject} (${messgeBuild})"
-	mattermostSend(color: "#2A42EE", message: msg, channel: "jenkin-test", endpoint: "https://chat.gameloft.org/hooks/tdpu3143pinudk115knqror6cy")
+	mattermostSend(color: "#2A42EE", message: msg, channel: "test-jenkin", endpoint: "https://chat.gameloft.org/hooks/dfth9r8bnby55fyum9e9zwip7c")
 }
 
