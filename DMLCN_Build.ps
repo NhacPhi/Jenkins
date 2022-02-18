@@ -49,8 +49,8 @@ pipeline {
 }
 def getMattermostMessage()
 {
-	String Run    = (params.RUN)?' RUN: ${params.RUN}':' '
-	String BUILD  = (params.BUILD)?'>>> BUILD: ${params.BUILD}':''
+	String Run    = (params.RUN)?" RUN: ${params.RUN}":" "
+	String BUILD  = (params.BUILD)?">>> BUILD: ${params.BUILD}":" "
 	def msgBuild = Run + BUILD + ' ('+env.BUILD_URL+')'
 	return msgBuild
 }
