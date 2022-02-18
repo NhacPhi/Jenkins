@@ -49,7 +49,8 @@ pipeline {
 }
 def getMattermostMessage()
 {
-	String Run    = (params.RUN)?' RUN':''
+	String Run    = (params.RUN)?' RUN':'params.RUN'
+	String BUILD  =(params.BUILD)?'>>> BUILD':'params.BUILD'
 	def msgBuild = Run + ' ('+env.BUILD_URL+')'
 	return msgBuild
 }
@@ -59,6 +60,6 @@ def notifySuccess()
     def subject = ":dianowobble::dianowobble: SUCCESSFUL::10: Job ${env.JOB_NAME}"
     def messgeBuild = getMattermostMessage()
     def msg = "${subject} (${messgeBuild})"
-	mattermostSend(color: "#2A42EE", message: msg, channel: "dmlcn-test", endpoint: "https://chat.gameloft.org/hooks/4xson5ab1jbo5ycizpwpwgkime")
+	mattermostSend(color: "#2A42EE", message: msg, channel: "dmlcn-test", endpoint: "https://chat.gameloft.org/hooks/u6db1tcxbfbgtyh7r8nfozaz9e")
 }
 
